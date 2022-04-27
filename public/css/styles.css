@@ -4,10 +4,6 @@ body {
   margin:  8% 15% 8% 15%;
 }
 
-.darksection {
-  background-color: #000000;
-}
-
-.lightsection{
-  background-color: #212121;
+code {
+  margin-bottom: 70px;
 }

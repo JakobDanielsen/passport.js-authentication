@@ -11,14 +11,17 @@
   <!-- <i class="fa-brands fa-node-js"></i> -->
 </section>
 
-<section class="darksection" id="info">
+<section id="info">
   <div class="p-5 mb-4rounded-3">
       <div class="container-fluid py-5">
         <h1 class="display-5 fw-bold pb-5 text-light">What is Passport.js?</h1>
-        <p class="text-light fs-5">
-          Passport.js is a framework that simplifies the process of encrypting passwords and the login process. Combined with other npm packets and databases such as mongoose and mongoDB it is an extremely powerful and easy to use tool <br>
-          <br>
-          You can use passport.js easily with the node packet manager. The passport.js pack was written by Jared Hanson and is consistenly updated
+        <p class="text-light fs-5 mb-4">
+          Passport.js is a framework that simplifies the process of encrypting passwords and the login process. Combined with other npm packets and databases such as mongoose and mongoDB it is an extremely powerful and easy to use tool.
+
+          You can use passport.js easily with the node packet manager. The passport.js pack was written by Jared Hanson and is consistenly updated.
+        </p>
+        <p class="text-light fs-5 mb-4">A practical example of this framework is: this website! When you registered an account or logged in on this site your data went through passport.js and is currently safely stored, salted and hashed in a mongodb database, wich will keep the passwords safe even if the databased is hacked or leaked.</p>
+        <p class="text-light fs-5 mb-4">Passport.js is very easy to use, its so easy that it feels like youre not done yet when you are done. Passport.js handles practically everything and has very good and clear documentation. Angela Yu teaches passport.js in an easily understandable way and is recommended if you want to make a login page, wich is also the reason i chose it.
         </p>
       </div>
     </div>
@@ -34,22 +37,106 @@ $ npm init
 $ npm i passport
     </code>
   </pre>
-</section>
 
-<section class="lightsection">
 
 </section>
 
+
+
+<section id="howto">
+
+  <p class="text-light fs-5">Here we require the npm packet and initialize it in a constant variable so we have access to its methods. To use it with express we use the app constant usually made when using the express packet.</p>
 <pre>
   <code class="language-js rounded">
 const passport = require("passport")
-const passportLocalMongoose = require("passport-local-mongoose")
+
+app.use(passport.initialize())
+app.use(passport.session())
   </code>
 </pre>
-    
 
+<p class="text-light fs-5">
+  Since MongoDB is a noSQL database we can always change how we want to send in data, but in this case we still want a strict; email and password only. 
+  This is how we chose what format we want to save data as:
+</p>
+<pre>
+  <code class="language-js rounded">
+const userSchema = new mongoose.Schema({
+      email: String,
+      password: String
+})
+  </code>
+</pre>
+<p class="text-light fs-5">
+  This is how we communicate to mongoose that this is what a user consists of. 
+</p>
+<pre>
+  <code class="language-js rounded">
+const User = mongoose.model("User",userSchema)
+  </code>
+</pre>
+
+<p class="text-light fs-5">
+  This is a standard register page, it starts with an app.post and a route the site is posted at. The "User" in this case is the user that is stored in a const that the client sent to the page becomes every time.
+  Because we use passport.js we get methods such as .register and passport.redirect, wich we here use to skip the process of saving the data manually. It is also advised to have a if(err) as form elements are very interactive and can lead to a variety of errors.
+<pre>
+  <code class="language-js rounded">
+app.post("/register", (req,res)=>{
+  User.register({username: req.body.username},req.body.password,(err,user)=>{ 
+      if(err){
+          console.log(err);
+          res.redirect("/register")
+      } else {
+          passport.authenticate("local")(req,res, ()=>{
+              res.redirect("/docs")
+          })
+      }
+  })
+})
+  </code>
+</pre>
+<p class="text-light fs-5">
+  Here with the login method inside the login app.post scope, its almost the same. This piece of code is very readable and understandable even though a lot of advanced things are happening behind the scenes. Thank you for that passport.js 
+</p>
+<pre>
+  <code class="language-js rounded">
+    app.post("/login",(req,res)=>{
+
+      const user = new User({ 
+          username:req.body.username,
+          password:req.body.password
+      })
   
+      req.login(user,(err)=>{ 
+          if (err) {
+              console.log(err);
+          } else {
+              passport.authenticate("local")(req,res,()=>{ 
+                  res.redirect("/docs") 
+              })
+          }
+      })
+  })
+  </code>
+</pre>
+</section>
+  
+<section id="about">
+  <h1 class="display-5 fw-bold mb-5 text-light">Security and vulnerabilities</h1>
+  <p class="text-light fs-5">
+    The most commonly known security threat is hacker attacks, and this is why we let a framework take the jobs of securing the data. However, big companies like facebook and linkedin have both have had a lot of data leaked in hacker attacks. You can never be 100% safe on the internet but with over 1.5 million downloads every single week, it shows people have trust in this service and it also puts a lot of pressure on the developers to keep the quality high. The level of risk is extremely low with passport.js
+  </p>
+</section>
+<section>
+  <h1 class="display-5 fw-bold my-5 text-light">Summary</h1>
+  <p class="text-light fs-5">
+    To sum it up passport.js is a powerful and safe tool that is easy to use, easy to read, easy to debug, accompanied with great documentation, tutorials and security. 
+    It works well on websites of different sizes, capacities and goes hand in hand with many other relevant node packets such as express, OAuth2.0 and mongoose. 
+  </p>
+</section>
 
+
+<p class="mt-5 mb-3 text-muted text-center">© 2022 - Jakob Danielsen</p>
 <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
             <script> hljs.initHighlightingOnLoad();</script>
    

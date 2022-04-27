@@ -9,7 +9,8 @@ const res = require("express/lib/response")
 const session = require('express-session')
 const passport = require("passport")
 const passportLocalMongoose = require("passport-local-mongoose")
-
+const env = require("dotenv")
+env.config()
 
 const app = express() // SETTER OPP EXPRESS SLIK AT VI KAN BRUKE METODER SOM USE,SET,POST,GET OG LISTEN
 
@@ -21,7 +22,7 @@ app.use(bodyParser.urlencoded({
 
 
 app.use(session({
-    secret:"hemmelighet",
+    secret:process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized:false
 }))
@@ -37,7 +38,7 @@ const userSchema = new mongoose.Schema({
     password: String
 })
 
-// BRUKER PASSPORT.JS SOM GJØR MYE ARBEID FOR OSS
+// BRUKER PASSPORT.JS MED MONGOOSE SOM GJØR MYE ARBEID FOR OSS
 userSchema.plugin(passportLocalMongoose)
 
 const User = mongoose.model("User",userSchema)
@@ -77,7 +78,7 @@ app.get("/register",(req,res)=>{
 })
 
 app.get("/logout",(req,res)=>{
-    req.logout()
+    req.logout() // DETTE SKJER ETTER NOEN TRYKKER PÅ LOG OUT, .LOGOUT ER EN METODE FRA PASSPORT.JS
     res.redirect("/")
 })
 
@@ -90,7 +91,7 @@ app.get("/failed",(req,res)=>{
 // APP POSTS - BEHANDLER SUBMITS FRA FORMS OG KAN HENTE DATA UT FRA DEM
 app.post("/register", (req,res)=>{
 
-    User.register({username: req.body.username},req.body.password,(err,user)=>{
+    User.register({username: req.body.username},req.body.password,(err,user)=>{ // PASSPORT FUNKSJONER SOM LAR OSS BRUKE .REGISTER METODEN
         if(err){
             console.log(err);
             res.redirect("/register")
@@ -105,18 +106,18 @@ app.post("/register", (req,res)=>{
 
 app.post("/login",(req,res)=>{
 
-    const user = new User({
+    const user = new User({ // DETTE ER HVORDAN EN NY BRUKER BLIR LAGET
         username:req.body.username,
         password:req.body.password
     })
 
-    req.login(user,(err)=>{
+    req.login(user,(err)=>{ // HER SJEKKER VI OM LOGINEN VIL FUNKE
         if (err) {
             console.log(err);
             // res.redirect("/failed") 
         } else {
-            passport.authenticate("local")(req,res,()=>{
-                res.redirect("/docs")
+            passport.authenticate("local")(req,res,()=>{ // HVIS DET FUNKET GJØR VI DETTE
+                res.redirect("/docs") // HER BLIR BRUKEREN SENDT TIL DOKUMENTET
             })
         }
     })
