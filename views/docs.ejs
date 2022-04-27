@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+
+<section id=logoutbtn>
+  <a class="btn btn-light btn-lg" href="/logout" role="button">Log Out</a>
+</section>
+
+<section id="start">
+  <!-- <i class="fa-brands fa-node-js"></i> -->
+  <h1 class="text-center display-1 fw-bolder pb-5 text-light" >Passport.js</h1>
+  <img class="rounded mx-auto d-block m-5" height="200px"  src="/passport.svg" >
+  <!-- <i class="fa-brands fa-node-js"></i> -->
+</section>
+
+<section class="darksection" id="info">
+  <div class="p-5 mb-4rounded-3">
+      <div class="container-fluid py-5">
+        <h1 class="display-5 fw-bold pb-5 text-light">What is Passport.js?</h1>
+        <p class="text-light fs-5">
+          Passport.js is a framework that simplifies the process of encrypting passwords and the login process. Combined with other npm packets and databases such as mongoose and mongoDB it is an extremely powerful and easy to use tool <br>
+          <br>
+          You can use passport.js easily with the node packet manager. The passport.js pack was written by Jared Hanson and is consistenly updated
+        </p>
+      </div>
+    </div>
+</section>
+
+<section id="npminstallation">
+  <p class="text-light fs-5">
+    To download passport.js you first need a project that has npm initialized
+  </p>
+  <pre>
+    <code class="bash rounded">
+$ npm init
+$ npm i passport
+    </code>
+  </pre>
+</section>
+
+<section class="lightsection">
+
+</section>
+
+<pre>
+  <code class="language-js rounded">
+const passport = require("passport")
+const passportLocalMongoose = require("passport-local-mongoose")
+  </code>
+</pre>
+    
+
+  
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+            <script> hljs.initHighlightingOnLoad();</script>
+   
+<%- include('partials/footer') %>

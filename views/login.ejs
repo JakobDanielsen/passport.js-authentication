@@ -1,42 +1,32 @@
 <%- include('partials/header') %>
 
-<div class="container mt-5">
-  <h1>Login</h1>
-
-  <div class="row">
-    <div class="col-sm-8">
-      <div class="card">
-        <div class="card-body">
-
-          <!-- Makes POST request to /login route -->
-          <form action="/login" method="POST">
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" class="form-control" name="username">
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" name="password">
-            </div>
-            <button type="submit" class="btn btn-dark">Login</button>
-          </form>
-
-        </div>
+    
+  <main class="form-signin text-center w-25 mx-auto">
+    <form action="/login" method="post">
+      <img class="m-5" src="/passport.svg" width="70" >
+      <h1 class="h3 mb-3 fw-normal text-light">Please log in to get access</h1>
+  
+      <div class="form-floating">
+        <input type="email" class="form-control input-color-dark " id="floatingInput" placeholder="name@example.com" name="username">
+        <label for="floatingInput">Email address</label>
       </div>
-    </div>
-
-    <!-- <div class="col-sm-4">
-      <div class="card">
-        <div class="card-body">
-          <a class="btn btn-block" href="/auth/google" role="button">
-            <i class="fab fa-google"></i>
-            Sign In with Google
-          </a>
-        </div>
+      <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+        <label for="floatingPassword">Password</label>
       </div>
-    </div> -->
+  
 
-  </div>
-</div>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+      <p class="mt-5 mb-3 text-muted">© 2022 - Jakob Danielsen</p>
+    </form>
+  </main>
+  
+  
+      
+    
+  
+
+
+
 
 <%- include('partials/footer') %>

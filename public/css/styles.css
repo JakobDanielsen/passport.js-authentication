@@ -1,16 +1,13 @@
 
 body {
-  background-color: #E8ECEF;
+  background-color: #000000;
+  margin:  8% 15% 8% 15%;
 }
 
-.centered {
-    padding-top: 200px;
-    text-align: center;
+.darksection {
+  background-color: #000000;
 }
 
-.secret-text {
-  text-align: center;
-  font-size: 2rem;
-  color: #fff;
-  background-color: #000;
+.lightsection{
+  background-color: #212121;
 }

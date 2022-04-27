@@ -1,16 +1,18 @@
 <%- include('partials/header') %>
 
 
-<div class="jumbotron centered">
-  <div class="container">
-    <i class="fas fa-key fa-6x"></i>
-    <h1 class="display-3">Secrets</h1>
-    <p class="lead">Don't keep your secrets, share them anonymously!</p>
-    <hr>
-    <a class="btn btn-light btn-lg" href="/register" role="button">Register</a>
-    <a class="btn btn-dark btn-lg" href="/login" role="button">Login</a>
-
+<div class="px-4 py-5 my-5 text-center">
+  <img class="d-block mx-auto mb-4" src="/passport.svg" alt="" width="70">
+  <h1 class="display-5 fw-bold text-light">Passport.js</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4 text-light"> This website is all about passport.js. In combination with mongoDB this website safely encrypts your passwords by salting and hashing them. Log in or Register to see more </p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <a href="/login" type="button" class="btn btn-primary btn-lg px-4 gap-3 te">Log in</a>
+      <a href="/register" type="button" class="btn btn-outline-secondary btn-lg px-4 te">Register</a>
+    </div>
   </div>
+  <p class="mt-5 mb-3 text-muted">© 2022 - Jakob Danielsen</p>
 </div>
+
 
 <%- include('partials/footer') %>

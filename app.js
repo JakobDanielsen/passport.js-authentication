@@ -63,9 +63,9 @@ app.get("/login",(req,res)=>{
     res.render("login")
 })
 
-app.get("/secrets",(req,res)=>{
+app.get("/docs",(req,res)=>{
     if(req.isAuthenticated()){
-        res.render("secrets")
+        res.render("docs")
     } else {
         res.redirect("/login")
     }
@@ -77,9 +77,15 @@ app.get("/register",(req,res)=>{
 })
 
 app.get("/logout",(req,res)=>{
-    res.logout()
+    req.logout()
     res.redirect("/")
 })
+
+app.get("/failed",(req,res)=>{
+    res.render("failed")
+})
+
+
 
 // APP POSTS - BEHANDLER SUBMITS FRA FORMS OG KAN HENTE DATA UT FRA DEM
 app.post("/register", (req,res)=>{
@@ -90,7 +96,7 @@ app.post("/register", (req,res)=>{
             res.redirect("/register")
         } else {
             passport.authenticate("local")(req,res, ()=>{
-                res.redirect("/secrets")
+                res.redirect("/docs")
             })
         }
     })
@@ -107,9 +113,10 @@ app.post("/login",(req,res)=>{
     req.login(user,(err)=>{
         if (err) {
             console.log(err);
+            // res.redirect("/failed") 
         } else {
             passport.authenticate("local")(req,res,()=>{
-                res.redirect("/secrets")
+                res.redirect("/docs")
             })
         }
     })
