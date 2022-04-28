@@ -17,20 +17,20 @@ const app = express() // SETTER OPP EXPRESS SLIK AT VI KAN BRUKE METODER SOM USE
 app.use(express.static("public"))
 app.set("view engine","ejs")
 app.use(bodyParser.urlencoded({
-    extended:true // OFTE NÅR NOE ER SKREVET SLIKT ER DET FOR Å FORMATERE UTKOMMET PÅ EN ANNET MÅTE, OFTE GRUNNET DEPRIKASJON
+    extended:true // OFTE NÅR NOE ER SKREVET SLIKT ER DET FOR Å FORMATERE INNHOLDET PÅ EN ANNET MÅTE, OFTE GRUNNET DEPRIKASJON
 }))
 
 
 app.use(session({
-    secret:process.env.SESSION_SECRET,
+    secret:process.env.SESSION_SECRET, // HEMMELIGHET SOM OPPBEVARES I EN .ENV FIL SOM .GITIGNORE FORHINDRER I Å BLI PUSHET
     resave: false,
     saveUninitialized:false
 }))
 
-app.use(passport.initialize())
+app.use(passport.initialize()) // FOR Å BRUKE PASSPORT I EXPRESS
 app.use(passport.session())
 
-mongoose.connect("mongodb://localhost:27017/loginsDB", {useNewUrlParser: true}) // HER KOBLER VI OSS TIL DATABASEN VI ØNSKER Å BRUKE
+mongoose.connect("mongodb://localhost:27017/loginsDB", {useNewUrlParser: true}) // HER KOBLER VI OSS TIL DATABASEN VI ØNSKER Å BRUKE, MONGOOSE GJØR DETTE UTROLIG MYE LETTERE
 
 // MAL PÅ HVORDAN DATA SKAL SAMLES INN I MONGODB
 const userSchema = new mongoose.Schema({
@@ -41,14 +41,14 @@ const userSchema = new mongoose.Schema({
 // BRUKER PASSPORT.JS MED MONGOOSE SOM GJØR MYE ARBEID FOR OSS
 userSchema.plugin(passportLocalMongoose)
 
-const User = mongoose.model("User",userSchema)
+const User = mongoose.model("User",userSchema) 
 
 passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-const user = new User ({
+const user = new User ({ // HER LAGDE JEG DEN FØRSTE BRUKEREN FOR Å HA NOE I DATABASEN FØRSTE GANG JEG BOOTER OPP
     email: "john.appleseed@gmail.com",
     password: "Password123"
 })
@@ -64,11 +64,11 @@ app.get("/login",(req,res)=>{
     res.render("login")
 })
 
-app.get("/docs",(req,res)=>{
-    if(req.isAuthenticated()){
-        res.render("docs")
+app.get("/docs",(req,res)=>{ // Å HA SJEKKEN ETTER MAN BLIR SENDT TIL SIDEN GJØR SIKKERHETEN BEDRE FORDI DET FORHINDRER OGSÅ AT BRUKERE KAN SKRIVE INN /DOCS I LINKEN OG KOMME RETT INN
+    if(req.isAuthenticated()){ // SJEKKER OM DEN SOM SENDER REQUEST ER AUTENTISERT I SYSTEMET
+        res.render("docs") // OM BRUKEREN ER AUTENTISERT BLIR DE SENDT TIL INNHOLDET TIL SIDEN
     } else {
-        res.redirect("/login")
+        res.redirect("/login") // OM BRUKEREN IKKE ER AUTENTISERT BLIR DE SENDT TILBAKE TIL LOGIN
     }
     
 })
@@ -117,7 +117,7 @@ app.post("/login",(req,res)=>{
             // res.redirect("/failed") 
         } else {
             passport.authenticate("local")(req,res,()=>{ // HVIS DET FUNKET GJØR VI DETTE
-                res.redirect("/docs") // HER BLIR BRUKEREN SENDT TIL DOKUMENTET
+                res.redirect("/docs") // HER BLIR BRUKEREN SENDT TIL INNHOLDET I SIDEN
             })
         }
     })

@@ -5,10 +5,10 @@
 </section>
 
 <section id="start">
-  <!-- <i class="fa-brands fa-node-js"></i> -->
+
   <h1 class="text-center display-1 fw-bolder pb-5 text-light" >Passport.js</h1>
   <img class="rounded mx-auto d-block m-5" height="200px"  src="/passport.svg" >
-  <!-- <i class="fa-brands fa-node-js"></i> -->
+
 </section>
 
 <section id="info">
@@ -21,6 +21,10 @@
           You can use passport.js easily with the node packet manager. The passport.js pack was written by Jared Hanson and is consistenly updated.
         </p>
         <p class="text-light fs-5 mb-4">A practical example of this framework is: this website! When you registered an account or logged in on this site your data went through passport.js and is currently safely stored, salted and hashed in a mongodb database, wich will keep the passwords safe even if the databased is hacked or leaked.</p>
+        <ul>
+          <li class="text-light fs-6 text-muted mb-4">Hashing: Using a mathemathical equation to add characters and make the password completely unreadable. This equation takes no time to calculate but reverse engineering it takes exponentially more time the more characters in the password. There are some weaknesses such as hash tables but this is one of the most secure methods we have to date.</li>
+          <li class="text-light fs-6 text-muted mb-4">Salting: A technique combined with hashing to make the hash even stronger. Salting is essentially adding random characters behind a password to make the hash longer, this also completely invalidates hash tables. Both salting and hashing are now password standards and most professional websites use both salting and hashing.</li>
+        </ul>
         <p class="text-light fs-5 mb-4">Passport.js is very easy to use, its so easy that it feels like youre not done yet when you are done. Passport.js handles practically everything and has very good and clear documentation. Angela Yu teaches passport.js in an easily understandable way and is recommended if you want to make a login page, wich is also the reason i chose it.
         </p>
       </div>
@@ -43,7 +47,7 @@ $ npm i passport
 
 
 
-<section id="howto">
+<section id="code">
 
   <p class="text-light fs-5">Here we require the npm packet and initialize it in a constant variable so we have access to its methods. To use it with express we use the app constant usually made when using the express packet.</p>
 <pre>
@@ -127,12 +131,29 @@ app.post("/register", (req,res)=>{
     The most commonly known security threat is hacker attacks, and this is why we let a framework take the jobs of securing the data. However, big companies like facebook and linkedin have both have had a lot of data leaked in hacker attacks. You can never be 100% safe on the internet but with over 1.5 million downloads every single week, it shows people have trust in this service and it also puts a lot of pressure on the developers to keep the quality high. The level of risk is extremely low with passport.js
   </p>
 </section>
-<section>
+<section id="ending">
+
+  <div class="container-fluid p-5 bg-dark rounded my-5">
+    <h1 class="display-5 fw-bold pb-5 text-light">Useful links</h1>
+    <p class="text-light fs-5"> As you can see there are many different ways to achieve a good login page, here are some useful links that passport provides in their documentation: </p>
+    <ul class="link-primary">
+      <li>
+        https://www.passportjs.org/tutorials/password/prompt/
+      </li>
+      <li>
+        https://www.passportjs.org/tutorials/password/verify/
+      </li>
+      <li>
+        https://www.passportjs.org/tutorials/password/session/
+      </li>
+    </ul>
+  </div>
   <h1 class="display-5 fw-bold my-5 text-light">Summary</h1>
   <p class="text-light fs-5">
     To sum it up passport.js is a powerful and safe tool that is easy to use, easy to read, easy to debug, accompanied with great documentation, tutorials and security. 
     It works well on websites of different sizes, capacities and goes hand in hand with many other relevant node packets such as express, OAuth2.0 and mongoose. 
   </p>
+  
 </section>
 
 
